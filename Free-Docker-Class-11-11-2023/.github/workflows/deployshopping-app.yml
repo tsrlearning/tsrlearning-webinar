@@ -1,0 +1,33 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - 'main'
+      - 'feature/**'
+env:
+    APP_DIR: "docker-microservice-shopping-app"
+jobs:
+  build:
+    name: Deploy shopping application
+    runs-on: ubuntu-latest  
+    steps:
+      - name: deploy app
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+
+            # check if directory already exists
+            if [ -d "${APP_DIR}" ]; then
+                echo "Working directory already exists, exiting..."
+                sudo rm -rf "${{ secrets.APP_DIR }}"
+            else
+                echo "Working directory does not exist, cloning repository..."
+                git clone https://${{ secrets.GH_USERNAME }}:${{ secrets.GH_PAT }}@github.com/tsrlearning/docker-microservice-shopping-app.git
+            fi
+
+            # Run the application
+            cd "${{ secrets.APP_DIR }}" && sudo docker-compose up -d

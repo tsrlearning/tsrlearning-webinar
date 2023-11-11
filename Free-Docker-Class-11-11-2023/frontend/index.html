@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Shopping App</title>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Thank You For attending this awesome docker webinar</h1>
+    </header>
+
+    <section id="products"></section>
+</div>
+
+<script>
+fetch('http://backend:80/products')
+    .then(response => response.json())
+    .then(data => {
+        const productsDiv = document.getElementById('products');
+        data.forEach(product => {
+            productsDiv.innerHTML += `
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/150" alt="${product.name}">
+                    <h2>${product.name}</h2>
+                    <p>$${product.price}</p>
+                    <button>Add to Cart</button>
+                </div>
+            `;
+        });
+    });
+</script>
+
+</body>
+</html>
