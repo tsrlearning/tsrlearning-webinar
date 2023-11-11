@@ -21,14 +21,14 @@ jobs:
     - name: Build and push frontend
       uses: docker/build-push-action@v5
       with:
-        context: ./frontend
+        context: Free-Docker-Class-11-11-2023/frontend
         push: true
         tags: tsrlearning/frontend:v2
 
     - name: Build and push backend
       uses: docker/build-push-action@v5
       with:
-        context: ./backend
+        context: Free-Docker-Class-11-11-2023/backend
         push: true
         tags: tsrlearning/backend:v2
 
