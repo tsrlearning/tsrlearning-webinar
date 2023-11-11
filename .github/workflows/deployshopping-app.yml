@@ -5,7 +5,7 @@ on:
       - 'main'
       - 'feature/**'
 env:
-    APP_DIR: "docker-microservice-shopping-app"
+    APP_DIR: "tsrlearning-webinar/Free-Docker-Class-11-11-2023"
 jobs:
   build:
     name: Deploy shopping application
@@ -26,8 +26,9 @@ jobs:
                 sudo rm -rf "${{ secrets.APP_DIR }}"
             else
                 echo "Working directory does not exist, cloning repository..."
-                git clone https://${{ secrets.GH_USERNAME }}:${{ secrets.GH_PAT }}@github.com/tsrlearning/docker-microservice-shopping-app.git
+                git clone https://${{ secrets.GH_USERNAME }}:${{ secrets.GH_PAT }}@github.com/tsrlearning/tsrlearning-webinar.git
             fi
 
             # Run the application
             cd "${{ secrets.APP_DIR }}" && sudo docker-compose up -d
+            
